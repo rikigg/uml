@@ -1,0 +1,34 @@
+@startuml
+actor Студент
+actor Преподаватель
+participant "Форма анкеты" as Questionnaire
+participant "Система" as System
+participant "Модуль кластеризации" as Clustering
+participant "ML-модель" as ML
+participant "Модуль рекомендаций" as Recommendations
+
+== Шаг 1: Заполнение анкеты ==
+Студент -> Questionnaire : Ввод ответов
+Преподаватель -> Questionnaire : Ввод ответов
+
+== Шаг 2: Обработка данных ==
+Questionnaire -> System : Отправка данных
+System -> System : Очистка и нормализация
+
+== Шаг 3: Кластеризация ==
+System -> Clustering : Выполнить кластеризацию
+Clustering -->> System : Список кластеров
+
+== Шаг 4: Машинное обучение ==
+System -> ML : Обучить модель
+ML -->> System : Обученная модель
+
+== Шаг 5: Рекомендации ==
+System -> Recommendations : Получить рекомендации
+Recommendations -> ML : Предсказать кластер
+Recommendations -> Clustering : Проверить тип кластера
+Recommendations -> Recommendations : Сформировать советы
+Recommendations -->> Студент : Отправка рекомендаций
+Recommendations -->> Преподаватель : Отправка рекомендаций
+
+@enduml
