@@ -1,0 +1,59 @@
+class Questionnaire {
+    - id: int
+    - questions: List[str]
+    + collect_data(): dict
+}
+
+class Student {
+    - id: int
+    - name: str
+    - responses: dict
+    - questionnaire: Questionnaire
+    + fill_questionnaire(): dict
+}
+
+class Teacher {
+    - id: int
+    - name: str
+    - responses: dict
+    - questionnaire: Questionnaire
+    + fill_questionnaire(): dict
+}
+
+class Cluster {
+    - id: int
+    - members: List[Student]
+    + create_clusters(data: list): list
+}
+
+class MachineLearningModel {
+    - trained_model: object
+    + train(data: list)
+    + predict(input: dict): str
+}
+
+class RecommendationSystem {
+    - model: MachineLearningModel
+    - giga_chat: GigaChatAPI
+    + provide_recommendation(student: Student): str
+}
+
+class DataProcessor {
+    - raw_data: list
+    + process(data: list): list
+}
+
+class GigaChatAPI {
+    - api_key: str
+    + get_recommendation(profile: dict): str
+}
+
+Student --> Questionnaire : uses >
+Teacher --> Questionnaire : uses >
+Cluster --> Student : contains >
+RecommendationSystem --> MachineLearningModel : uses >
+RecommendationSystem --> GigaChatAPI : uses >
+MachineLearningModel --> Cluster : trained on >
+DataProcessor --> Student : processes data from >
+
+@enduml
