@@ -1,0 +1,36 @@
+@startuml
+left to right direction
+
+actor Студент
+actor Преподаватель
+
+rectangle "Система анализа цифровизации" {
+
+  usecase "Пройти анкетирование (студент)" as UC1
+  usecase "Пройти анкетирование (преподаватель)" as UC2
+  usecase "Собрать и обработать данные" as UC3
+  usecase "Кластеризовать студентов" as UC4
+  usecase "Обучить классификатор" as UC5
+  usecase "Предоставить рекомендации" as UC6
+  usecase "Интеграция с GigaChat API" as UC8
+  usecase "Автоматизировать сбор данных" as UC7
+  usecase "Визуализировать кластеры" as UC9
+  usecase "Сформировать аналитические выводы" as UC10
+
+  UC3 --> UC4 : <<include>>
+  UC4 --> UC5 : <<include>>
+  UC5 --> UC6 : <<include>>
+  UC6 --> UC8 : <<include>>
+
+  UC1 --> UC3
+  UC2 --> UC3
+
+  UC7 --> UC3 : <<extend>>
+  UC9 --> UC4
+  UC10 --> UC6
+}
+
+Студент --> UC1
+Преподаватель --> UC2
+
+@enduml
